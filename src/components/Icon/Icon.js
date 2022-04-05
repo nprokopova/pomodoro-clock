@@ -22,9 +22,7 @@ const Icon = ({ id, color, strokeWidth, size}) => {
   }
 
   return (
-   
       <Component color={color} strokeWidth = {strokeWidth} size = {size} />
-   
   );
 };
 

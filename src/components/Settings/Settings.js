@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components/macro';
 import Icon from '../Icon'
-import IconWrapper from "../IconWrapper";
+import Button from "../Button";
 import ButtonWrapper from "../ButtonWrapper";
 
 const Settings = (props) => {
@@ -15,13 +15,13 @@ const Settings = (props) => {
         <Label id="break-label">Break Length</Label>
 
         <ButtonWrapper>
-          <IconWrapper onClick={props.handleBreakDecrement}>
+          <Button onClick={props.handleBreakDecrement}>
             <Icon id='chevron-down' strokeWidth={2.5} size={22} />
-          </IconWrapper>
+          </Button>
           <DurationVariable>{props.breakValue}</DurationVariable>
-          <IconWrapper onClick={props.handleBreakIncrement}>
+          <Button onClick={props.handleBreakIncrement}>
             <Icon id='chevron-up' strokeWidth={2.5} size={22} />
-          </IconWrapper>
+          </Button>
         </ButtonWrapper>
 
       </ControlsWrapper>
@@ -30,11 +30,11 @@ const Settings = (props) => {
         <Label id="session-label">Session Length</Label>
 
         <ButtonWrapper>
-          <IconWrapper onClick={props.handleSessionDecrement}>
-            <Icon id='chevron-down' strokeWidth={2.5} size={22}></Icon></IconWrapper>
+          <Button onClick={props.handleSessionDecrement}>
+            <Icon id='chevron-down' strokeWidth={2.5} size={22}></Icon></Button>
           <DurationVariable>{props.sessionValue}</DurationVariable>
-          <IconWrapper onClick={props.handleSessionIncrement}>
-            <Icon id='chevron-up' strokeWidth={2.5} size={22}></Icon></IconWrapper>
+          <Button onClick={props.handleSessionIncrement}>
+            <Icon id='chevron-up' strokeWidth={2.5} size={22}></Icon></Button>
         </ButtonWrapper>
 
       </ControlsWrapper>
@@ -46,7 +46,7 @@ const Settings = (props) => {
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
