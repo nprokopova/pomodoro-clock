@@ -8,28 +8,37 @@ const Settings = (props) => {
 
   return (
     <Wrapper>
-      <h1 style={{fontSize: '2.5rem', margin: '0px  0px 15px 0px'}}>Pomodoro Clock</h1>
+
+      <h1 style={{ fontSize: '2.5rem', margin: '0px  0px 15px 0px' }}>Pomodoro Clock</h1>
+
       <ControlsWrapper>
         <Label id="break-label">Break Length</Label>
+
         <ButtonWrapper>
           <IconWrapper onClick={props.handleBreakDecrement}>
-          <Icon id='chevron-down' strokeWidth = {2.5} size = {22}></Icon>
+            <Icon id='chevron-down' strokeWidth={2.5} size={22} />
           </IconWrapper>
           <DurationVariable>{props.breakValue}</DurationVariable>
           <IconWrapper onClick={props.handleBreakIncrement}>
-            <Icon id = 'chevron-up' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
+            <Icon id='chevron-up' strokeWidth={2.5} size={22} />
+          </IconWrapper>
         </ButtonWrapper>
+
       </ControlsWrapper>
+
       <ControlsWrapper>
         <Label id="session-label">Session Length</Label>
+
         <ButtonWrapper>
           <IconWrapper onClick={props.handleSessionDecrement}>
-            <Icon id='chevron-down' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
+            <Icon id='chevron-down' strokeWidth={2.5} size={22}></Icon></IconWrapper>
           <DurationVariable>{props.sessionValue}</DurationVariable>
           <IconWrapper onClick={props.handleSessionIncrement}>
-            <Icon id = 'chevron-up' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
+            <Icon id='chevron-up' strokeWidth={2.5} size={22}></Icon></IconWrapper>
         </ButtonWrapper>
+
       </ControlsWrapper>
+
     </Wrapper>
 
   );
@@ -44,22 +53,16 @@ const Wrapper = styled.div`
 `
 const ControlsWrapper = styled.div`
   margin: 10px;
-
-
 `
 const Label = styled.label`
-
-font-size: ${20/16}rem;
-
-
+font-size: ${20 / 16}rem;
 `
 const DurationVariable = styled.var`
-font-size: ${22/16}rem;
+font-size: ${22 / 16}rem;
 font-family: inherit;
 font-style: normal;
 margin: 0px;
 padding: 0px;
-
 `
 
 export default Settings;

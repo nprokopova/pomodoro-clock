@@ -1,3 +1,1 @@
-
-
-export {default} from './Settings'
+export { default } from './Settings'
