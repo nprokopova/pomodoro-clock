@@ -18,7 +18,7 @@ const Settings = (props) => {
           <Button onClick={props.handleBreakDecrement}>
             <Icon id='chevron-down' strokeWidth={2.5} size={22} />
           </Button>
-          <DurationVariable>{props.breakValue}</DurationVariable>
+          <DurationVariable>{props.breakDisplayValue}</DurationVariable>
           <Button onClick={props.handleBreakIncrement}>
             <Icon id='chevron-up' strokeWidth={2.5} size={22} />
           </Button>
@@ -32,7 +32,7 @@ const Settings = (props) => {
         <ButtonWrapper>
           <Button onClick={props.handleSessionDecrement}>
             <Icon id='chevron-down' strokeWidth={2.5} size={22}></Icon></Button>
-          <DurationVariable>{props.sessionValue}</DurationVariable>
+          <DurationVariable>{props.sessionDisplayValue}</DurationVariable>
           <Button onClick={props.handleSessionIncrement}>
             <Icon id='chevron-up' strokeWidth={2.5} size={22}></Icon></Button>
         </ButtonWrapper>
