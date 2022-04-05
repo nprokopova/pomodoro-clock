@@ -162,7 +162,7 @@ const App = () => {
         handleReset={handleReset}
         timerLabel={timerLabel}
       />
-      <Footer>by Nikol Prokopova</Footer>
+      <Footer author = 'Nikol Prokopova'/>
     </Wrapper>
   );
 };
