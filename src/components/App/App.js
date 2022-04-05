@@ -5,6 +5,7 @@ import Settings from "../Settings";
 import Timer from "../Timer";
 import Footer from "../Footer";
 
+
 const App = () => {
   const [breakLength, setBreakLength] = useState(5);
   const [breakValue, setBreakValue] = useState(5);
@@ -24,12 +25,10 @@ const App = () => {
     }
   };
   const handleSessionIncrement = () => {
-    let newSession;
     if (sessionLength < 60 && !timerState) {
-      newSession = sessionLength + 1;
-      setSessionLength(sessionLength);
-      setSessionValue(newSession);
-      setTimerValue(`${newSession > 9 ? newSession : "0" + newSession}:00`);
+      setSessionLength(sessionLength + 1);
+      setSessionValue(sessionLength + 1);
+      setTimerValue(`${(sessionLength + 1) > 9 ? sessionLength + 1 : "0" + sessionLength + 1}:00`);
     }
   };
   const handleBreakDecrement = () => {
@@ -39,12 +38,10 @@ const App = () => {
     }
   };
   const handleSessionDecrement = () => {
-    let newSession;
     if (sessionLength > 1 && !timerState) {
-      newSession = sessionLength - 1;
-      setSessionLength(newSession);
-      setSessionValue(newSession);
-      setTimerValue(`${newSession > 9 ? newSession : "0" + newSession}:00`);
+      setSessionLength(sessionLength - 1);
+      setSessionValue(sessionLength - 1);
+      setTimerValue(`${(sessionLength - 1) > 9 ? sessionLength - 1 : "0" + sessionLength - 1}:00`);
     }
   };
   const handleReset = () => {

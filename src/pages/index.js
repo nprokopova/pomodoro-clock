@@ -1,16 +1,15 @@
-import * as React from "react"
-import App from '../components/App';
-import GlobalStyles from '../components/GlobalStyles';
-
+import * as React from "react";
+import App from "../components/App";
+import GlobalStyles from "../components/GlobalStyles";
 
 // markup
 const IndexPage = () => {
   return (
     <>
-    <App />
-    <GlobalStyles />
-  </>
-  )
-}
+      <App />
+      <GlobalStyles />
+    </>
+  );
+};
 
-export default IndexPage
+export default IndexPage;
