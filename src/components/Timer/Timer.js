@@ -1,43 +1,177 @@
 import React from "react";
-import styled from 'styled-components/macro';
-import Icon from '../Icon'
-import Button from "../Button";
-import ButtonWrapper from "../ButtonWrapper";
+import { useState } from "react";
+import styled from "styled-components/macro";
+import Settings from "../Settings";
+import TimerDisplay from "../TimerDisplay";
+import Footer from "../Footer";
 
-const Timer = (props) => {
 
-    return (
-        <Wrapper>
-            <Label>{props.timerLabel}</Label>
-            <TimeLeft>{props.timerValue}</TimeLeft>
-            <ButtonWrapper>
-                <Button onClick={props.toggleTimer}>
-                    <Icon id='power' strokeWidth={2.5} size={22}></Icon></Button>
-                <Button onClick={props.handleReset}>
-                    <Icon id='refresh-cw' strokeWidth={2.5} size={22}></Icon>
-                </Button>
-            </ButtonWrapper>
-            <audio id='beep' src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" />
+const Timer = () => {
+  const [breakLength, setBreakLength] = useState(5);
+  const [sessionLength, setSessionLength] = useState(25);
+  const [breakDisplayValue, setBreakDisplayValue] = useState(5);
+  const [sessionDisplayValue, setSessionDisplayValue] = useState(25);
+  const [timerValue, setTimerValue] = useState("25:00");
+  const [timerState, setTimerState] = useState();
+  const [currentMinutes, setCurrentMinutes] = useState();
+  const [timerInterval, setTimerInterval] = useState();
+  const [myTimeout, setMyTimeout] = useState();
+  const [timerLabel, setTimerLabel] = useState("Session");
 
-        </Wrapper>
-    )
-}
+  const handleBreakIncrement = () => {
+    if (breakLength < 60 && !timerState) {
+      setBreakLength(breakLength + 1);
+      setBreakDisplayValue(breakLength + 1);
+    }
+  };
+  const handleSessionIncrement = () => {
+    if (sessionLength < 60 && !timerState) {
+      setSessionLength(sessionLength + 1);
+      setSessionDisplayValue(sessionLength + 1);
+      setTimerValue(`${(sessionLength + 1) > 9 ? sessionLength + 1 : "0" + sessionLength + 1}:00`);
+    }
+  };
+  const handleBreakDecrement = () => {
+    if (breakLength > 1 && !timerState) {
+      setBreakLength(breakLength - 1);
+      setBreakDisplayValue(breakLength - 1);
+    }
+  };
+  const handleSessionDecrement = () => {
+    if (sessionLength > 1 && !timerState) {
+      setSessionLength(sessionLength - 1);
+      setSessionDisplayValue(sessionLength - 1);
+      setTimerValue(`${(sessionLength - 1) > 9 ? sessionLength - 1 : "0" + sessionLength - 1}:00`);
+    }
+  };
+  const handleReset = () => {
+    setBreakLength(5);
+    setSessionLength(25);
+    setBreakDisplayValue(5);
+    setSessionDisplayValue(25);
+    setTimerValue("25:00");
+    setTimerState();
+    clearInterval(timerInterval);
+    clearTimeout(myTimeout);
+    setTimerLabel("Session");
+    document.getElementById("beep").pause();
+    document.getElementById("beep").src =
+      "https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3";
+  };
+
+  const toggleTimer = () => {
+    if (!timerState) {
+      setTimerState("on");
+      setTimer();
+      clearInterval(timerInterval);
+      clearTimeout(myTimeout);
+    }
+    if (timerState === "on") {
+      setTimerState("off");
+      clearInterval(timerInterval);
+      clearTimeout(myTimeout);
+      timerLabel === "Session"
+        ? setSessionLength(currentMinutes)
+        : setBreakLength(currentMinutes);
+    } else if (timerState === "off") {
+      setTimerState("on");
+      setTimer();
+      clearInterval(timerInterval);
+      clearTimeout(myTimeout);
+    }
+  };
+
+
+  const sessionCountdown = () => {
+    let minutes;
+    let seconds;
+    let sessionSeconds = sessionLength * 60;
+    let breakSeconds = breakLength * 60;
+    if (timerValue === "25:00") {
+      sessionSeconds -= 1;
+    }
+    let myInterval = setInterval(() => {
+      minutes = Math.floor(sessionSeconds / 60);
+      seconds = Math.round((sessionSeconds / 60 - minutes) * 60);
+      setTimerLabel("Session");
+      setTimerValue(
+        `${minutes > 9 ? minutes : "0" + minutes}:${
+          seconds > 9 ? seconds : "0" + seconds
+        }`
+      );
+      sessionSeconds -= 1;
+      setCurrentMinutes(sessionSeconds / 60);
+      setTimerInterval(myInterval);
+
+      if (sessionSeconds === 0) {
+        setTimerValue(`00:00`);
+        document.getElementById("beep").play();
+        let myTimeout = setTimeout(breakCountdown, 1000);
+
+        setMyTimeout(myTimeout);
+        clearInterval(myInterval);
+      }
+    }, 1000);
+  };
+
+  const breakCountdown = () => {
+    let minutes;
+    let seconds;
+    let breakSeconds = breakLength * 60;
+    let myInterval = setInterval(() => {
+      minutes = Math.floor(breakSeconds / 60);
+      seconds = Math.round((breakSeconds / 60 - minutes) * 60);
+      setTimerLabel("Break");
+      setTimerValue(
+        `${minutes > 9 ? minutes : "0" + minutes}:${
+          seconds > 9 ? seconds : "0" + seconds
+        }`
+      );
+      breakSeconds -= 1;
+
+      setCurrentMinutes(breakSeconds / 60);
+      setTimerInterval(myInterval);
+
+      if (breakSeconds === 0) {
+        setTimerValue(`00:00`);
+        document.getElementById("beep").play();
+        let myTimeout = setTimeout(sessionCountdown, 1000);
+
+        setMyTimeout(myTimeout);
+        clearInterval(myInterval);
+      }
+    }, 1000);
+  };
+  const setTimer = () => {
+    timerLabel === "Session" ? sessionCountdown() : breakCountdown();
+  };
+
+  return (
+    <Wrapper>
+      <Settings
+        breakDisplayValue={breakDisplayValue}
+        sessionDisplayValue={sessionDisplayValue}
+        handleBreakIncrement={handleBreakIncrement}
+        handleSessionIncrement={handleSessionIncrement}
+        handleBreakDecrement={handleBreakDecrement}
+        handleSessionDecrement={handleSessionDecrement}
+      />
+      <TimerDisplay
+        timerValue={timerValue}
+        toggleTimer={toggleTimer}
+        handleReset={handleReset}
+        timerLabel={timerLabel}
+      />
+      <Footer author = 'Nikol Prokopova'/>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
-font-size: 35px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border-radius:20px;
-`
-const TimeLeft = styled.time`
-font-size: ${48 / 16}rem;
-font-style: normal;
-`
-const Label = styled.label`
-font-size: ${28 / 16}rem;
-margin: 10px;
-`
-
+  width: fit-content;
+  margin: 30px;
+  padding: 45px 20px;
+  background-color: #3a7865;
+  border-radius: 10px;
+`;
 export default Timer;
