@@ -18,7 +18,7 @@ const Timer = (props) => {
                 </IconWrapper>
             </ButtonWrapper>
             <audio id='beep' src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" />
-            <Footer>by Nikol Prokopova</Footer>
+           
         </Wrapper>
     )
 }
@@ -33,12 +33,7 @@ align-items: center;
 border-radius:20px;
 `
 
-const Footer = styled.footer`
-font-size: ${12/16}rem;
-margin-top: 10px;
-font-weight: 600;
-color: #783A4D;
-`
+
 const TimeLeft = styled.time`
 font-size: ${48/16}rem;
 

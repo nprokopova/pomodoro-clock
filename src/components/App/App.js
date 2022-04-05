@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from 'styled-components/macro';
 import Settings from '../Settings';
 import Timer from '../Timer'
+import Footer from "../Footer";
 
 const App = () => {
     const [breakLength, setBreakLength] = useState(5);
@@ -152,6 +153,7 @@ const App = () => {
         <Wrapper>
             <Settings breakValue={breakValue} sessionValue={sessionValue} handleBreakIncrement={handleBreakIncrement} handleSessionIncrement={handleSessionIncrement} handleBreakDecrement={handleBreakDecrement} handleSessionDecrement={handleSessionDecrement} />
             <Timer timerValue={timerValue} toggleTimer={toggleTimer} handleReset={handleReset} timerLabel={timerLabel} />
+            <Footer>by Nikol Prokopova</Footer>
         </Wrapper>
     )
 };
