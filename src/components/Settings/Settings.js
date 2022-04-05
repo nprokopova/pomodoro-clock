@@ -13,21 +13,21 @@ const Settings = (props) => {
         <Label id="break-label">Break Length</Label>
         <ButtonWrapper>
           <IconWrapper onClick={props.handleBreakDecrement}>
-          <Icon id='chevron-down'></Icon>
+          <Icon id='chevron-down' strokeWidth = {2.5} size = {22}></Icon>
           </IconWrapper>
           <DurationVariable>{props.breakValue}</DurationVariable>
           <IconWrapper onClick={props.handleBreakIncrement}>
-            <Icon id = 'chevron-up'></Icon></IconWrapper>
+            <Icon id = 'chevron-up' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
         </ButtonWrapper>
       </ControlsWrapper>
       <ControlsWrapper>
         <Label id="session-label">Session Length</Label>
         <ButtonWrapper>
           <IconWrapper onClick={props.handleSessionDecrement}>
-            <Icon id='chevron-down'></Icon></IconWrapper>
+            <Icon id='chevron-down' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
           <DurationVariable>{props.sessionValue}</DurationVariable>
           <IconWrapper onClick={props.handleSessionIncrement}>
-            <Icon id = 'chevron-up'></Icon></IconWrapper>
+            <Icon id = 'chevron-up' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
         </ButtonWrapper>
       </ControlsWrapper>
     </Wrapper>

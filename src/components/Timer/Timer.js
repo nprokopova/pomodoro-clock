@@ -12,9 +12,9 @@ const Timer = (props) => {
             <TimeLeft>{props.timerValue}</TimeLeft>
             <ButtonWrapper>
                 <IconWrapper onClick={props.toggleTimer}>
-                <Icon id='power'></Icon></IconWrapper>
+                <Icon id='power' strokeWidth = {2.5} size = {22}></Icon></IconWrapper>
                 <IconWrapper onClick={props.handleReset}>
-                <Icon id='refresh-cw'></Icon>
+                <Icon id='refresh-cw' strokeWidth = {2.5} size = {22}></Icon>
                 </IconWrapper>
             </ButtonWrapper>
             <audio id='beep' src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" />

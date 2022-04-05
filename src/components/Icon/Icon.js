@@ -14,7 +14,7 @@ const icons = {
   'refresh-cw':RefreshCw
 };
 
-const Icon = ({ id, color}) => {
+const Icon = ({ id, color, strokeWidth, size}) => {
   const Component = icons[id];
 
   if (!Component) {
@@ -23,7 +23,7 @@ const Icon = ({ id, color}) => {
 
   return (
    
-      <Component color={color} strokeWidth = {2.5} size = {22} />
+      <Component color={color} strokeWidth = {strokeWidth} size = {size} />
    
   );
 };
