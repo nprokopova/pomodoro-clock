@@ -4,7 +4,7 @@ module.exports = {
     siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
-    
+
       "gatsby-plugin-styled-components",
       {
       resolve: `gatsby-plugin-google-fonts`,
@@ -16,4 +16,5 @@ module.exports = {
       },
     },
   ],
+  pathPrefix: "/pomodoro-clock",
 };
