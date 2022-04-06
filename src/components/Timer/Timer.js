@@ -168,10 +168,6 @@ const Timer = () => {
 };
 
 const Wrapper = styled.div`
-  width: fit-content;
-  margin: 30px;
-  padding: 45px 20px;
-  background-color: #3a7865;
-  border-radius: 10px;
+
 `;
 export default Timer;

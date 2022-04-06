@@ -3,12 +3,10 @@ import styled from "styled-components/macro";
 import Icon from "../Icon";
 import Button from "../Button";
 import ButtonWrapper from "../ButtonWrapper";
-import Header from "../Header";
 
 const Settings = (props) => {
   return (
     <Wrapper>
-      <Header title="Pomodoro Clock" />
       <ControlsWrapper>
         <Label id="break-label">Break Length</Label>
 
