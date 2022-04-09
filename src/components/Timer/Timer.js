@@ -5,12 +5,9 @@ import Settings from "../Settings";
 import TimerDisplay from "../TimerDisplay";
 import Footer from "../Footer";
 
-
 const Timer = () => {
   const [breakLength, setBreakLength] = useState(5);
   const [sessionLength, setSessionLength] = useState(25);
-  const [breakDisplayValue, setBreakDisplayValue] = useState(5);
-  const [sessionDisplayValue, setSessionDisplayValue] = useState(25);
   const [timerValue, setTimerValue] = useState("25:00");
   const [timerState, setTimerState] = useState();
   const [currentMinutes, setCurrentMinutes] = useState();
@@ -21,34 +18,45 @@ const Timer = () => {
   const handleBreakIncrement = () => {
     if (breakLength < 60 && !timerState) {
       setBreakLength(breakLength + 1);
-      setBreakDisplayValue(breakLength + 1);
     }
   };
   const handleSessionIncrement = () => {
     if (sessionLength < 60 && !timerState) {
       setSessionLength(sessionLength + 1);
-      setSessionDisplayValue(sessionLength + 1);
-      setTimerValue(`${(sessionLength + 1) > 9 ? sessionLength + 1 : "0" + sessionLength + 1}:00`);
+      setTimerValue(
+        `${
+          sessionLength + 1 > 9 ? sessionLength + 1 : "0" + (sessionLength + 1)
+        }:00`
+      );
     }
   };
   const handleBreakDecrement = () => {
     if (breakLength > 1 && !timerState) {
       setBreakLength(breakLength - 1);
-      setBreakDisplayValue(breakLength - 1);
     }
   };
   const handleSessionDecrement = () => {
     if (sessionLength > 1 && !timerState) {
       setSessionLength(sessionLength - 1);
-      setSessionDisplayValue(sessionLength - 1);
-      setTimerValue(`${(sessionLength - 1) > 9 ? sessionLength - 1 : "0" + sessionLength - 1}:00`);
+      setTimerValue(
+        `${
+          sessionLength - 1 > 9 ? sessionLength - 1 : "0" + (sessionLength - 1)
+        }:00`
+      );
     }
   };
+
+  const formatTime = (seconds) => {
+    let minutes = Math.floor(seconds / 60);
+    let remainingSeconds = Math.round((seconds / 60 - minutes) * 60);
+    return `${minutes > 9 ? minutes : "0" + minutes}:${
+      remainingSeconds > 9 ? remainingSeconds : "0" + remainingSeconds
+    }`;
+  };
+
   const handleReset = () => {
     setBreakLength(5);
     setSessionLength(25);
-    setBreakDisplayValue(5);
-    setSessionDisplayValue(25);
     setTimerValue("25:00");
     setTimerState();
     clearInterval(timerInterval);
@@ -62,95 +70,59 @@ const Timer = () => {
   const toggleTimer = () => {
     if (!timerState) {
       setTimerState("on");
-      setTimer();
+      timer();
+    } else if (timerState === "on") {
+      setTimerState("pause");
       clearInterval(timerInterval);
       clearTimeout(myTimeout);
-    }
-    if (timerState === "on") {
-      setTimerState("off");
+    } else if (timerState === "pause") {
       clearInterval(timerInterval);
       clearTimeout(myTimeout);
-      timerLabel === "Session"
-        ? setSessionLength(currentMinutes)
-        : setBreakLength(currentMinutes);
-    } else if (timerState === "off") {
       setTimerState("on");
-      setTimer();
-      clearInterval(timerInterval);
-      clearTimeout(myTimeout);
+      timer("resume");
     }
   };
 
+  const countDown = (minutes, label) => {
+    let seconds = minutes * 60;
 
-  const sessionCountdown = () => {
-    let minutes;
-    let seconds;
-    let sessionSeconds = sessionLength * 60;
-    let breakSeconds = breakLength * 60;
-    if (timerValue === "25:00") {
-      sessionSeconds -= 1;
+    const myInterval = setInterval(() => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+      setTimerInterval(myInterval);
+      setTimerLabel(label);
+      seconds -= 1;
+      setCurrentMinutes(seconds / 60);
+      setTimerValue(formatTime(seconds));
+
+      if (seconds === 0) {
+        setTimerValue("00:00");
+        document.getElementById("beep").play();
+        clearInterval(myInterval);
+        setTimerInterval();
+        let myTimeout = setTimeout(timer("switch", label), 1000);
+        setMyTimeout(myTimeout);
+      }
+    }, 1000);
+  };
+  const timer = (timerMode, label) => {
+    if (!timerMode) {
+      countDown(sessionLength, "Session");
+    } else if (timerMode === "resume") {
+      countDown(currentMinutes, timerLabel);
+    } else if (timerMode === "switch" && label === "Session") {
+      countDown(breakLength + 1 / 60, "Break");
+    } else if (timerMode === "switch" && label === "Break") {
+      countDown(sessionLength + 1 / 60, "Session");
     }
-    let myInterval = setInterval(() => {
-      minutes = Math.floor(sessionSeconds / 60);
-      seconds = Math.round((sessionSeconds / 60 - minutes) * 60);
-      setTimerLabel("Session");
-      setTimerValue(
-        `${minutes > 9 ? minutes : "0" + minutes}:${
-          seconds > 9 ? seconds : "0" + seconds
-        }`
-      );
-      sessionSeconds -= 1;
-      setCurrentMinutes(sessionSeconds / 60);
-      setTimerInterval(myInterval);
-
-      if (sessionSeconds === 0) {
-        setTimerValue(`00:00`);
-        document.getElementById("beep").play();
-        let myTimeout = setTimeout(breakCountdown, 1000);
-
-        setMyTimeout(myTimeout);
-        clearInterval(myInterval);
-      }
-    }, 1000);
-  };
-
-  const breakCountdown = () => {
-    let minutes;
-    let seconds;
-    let breakSeconds = breakLength * 60;
-    let myInterval = setInterval(() => {
-      minutes = Math.floor(breakSeconds / 60);
-      seconds = Math.round((breakSeconds / 60 - minutes) * 60);
-      setTimerLabel("Break");
-      setTimerValue(
-        `${minutes > 9 ? minutes : "0" + minutes}:${
-          seconds > 9 ? seconds : "0" + seconds
-        }`
-      );
-      breakSeconds -= 1;
-
-      setCurrentMinutes(breakSeconds / 60);
-      setTimerInterval(myInterval);
-
-      if (breakSeconds === 0) {
-        setTimerValue(`00:00`);
-        document.getElementById("beep").play();
-        let myTimeout = setTimeout(sessionCountdown, 1000);
-
-        setMyTimeout(myTimeout);
-        clearInterval(myInterval);
-      }
-    }, 1000);
-  };
-  const setTimer = () => {
-    timerLabel === "Session" ? sessionCountdown() : breakCountdown();
   };
 
   return (
     <Wrapper>
       <Settings
-        breakDisplayValue={breakDisplayValue}
-        sessionDisplayValue={sessionDisplayValue}
+        breakLength={breakLength}
+        sessionLength={sessionLength}
         handleBreakIncrement={handleBreakIncrement}
         handleSessionIncrement={handleSessionIncrement}
         handleBreakDecrement={handleBreakDecrement}
@@ -162,12 +134,10 @@ const Timer = () => {
         handleReset={handleReset}
         timerLabel={timerLabel}
       />
-      <Footer author = 'Nikol Prokopova'/>
+      <Footer author="Nikol Prokopova" />
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-
-`;
+const Wrapper = styled.div``;
 export default Timer;

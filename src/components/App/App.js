@@ -1,15 +1,15 @@
 import React from "react";
-import Timer from '../Timer'
+import Timer from "../Timer";
 import Header from "../Header";
-import styled from 'styled-components/macro';
+import styled from "styled-components/macro";
 
 const App = () => {
-  return(
+  return (
     <Wrapper>
       <Header title="Pomodoro Clock" />
-     <Timer/>
-     </Wrapper>
-  )
+      <Timer />
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
