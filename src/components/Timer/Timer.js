@@ -77,19 +77,17 @@ const Timer = () => {
       clearTimeout(myTimeout);
     } else if (timerState === "pause") {
       clearInterval(timerInterval);
+      setTimerInterval();
       clearTimeout(myTimeout);
       setTimerState("on");
-      timer("resume");
+      timerInterval && timer("resume");
     }
   };
 
   const countDown = (minutes, label) => {
     let seconds = minutes * 60;
-
+    clearInterval(timerInterval);
     const myInterval = setInterval(() => {
-      if (timerInterval) {
-        clearInterval(timerInterval);
-      }
       setTimerInterval(myInterval);
       setTimerLabel(label);
       seconds -= 1;
@@ -100,7 +98,6 @@ const Timer = () => {
         setTimerValue("00:00");
         document.getElementById("beep").play();
         clearInterval(myInterval);
-        setTimerInterval();
         let myTimeout = setTimeout(timer("switch", label), 1000);
         setMyTimeout(myTimeout);
       }
