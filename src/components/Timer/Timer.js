@@ -64,7 +64,7 @@ const Timer = () => {
     setTimerLabel("Session");
     document.getElementById("beep").pause();
     document.getElementById("beep").src =
-      "https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3";
+      "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/household_clock_digital_alarm_beeping_004.mp3";
   };
 
   const toggleTimer = () => {
