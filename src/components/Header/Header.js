@@ -7,8 +7,8 @@ const Header = (props) => {
 }
 
 const Heading = styled.h1`
-font-size: 2.5rem;
+font-size: 2.4rem;
 color:  white;
-margin: 0px  0px 15px 0px;
+margin: 0px  0px 12px 0px;
 `
 export default Header;

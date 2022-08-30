@@ -14,7 +14,8 @@ const App = () => {
 
 const Wrapper = styled.div`
   width: max-content;
-  margin: 30px;
+  margin: auto;
+  margin-top: 30px;
   padding: 45px 20px;
   background-color: #3a7865;
   border-radius: 10px;
