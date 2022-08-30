@@ -10,7 +10,7 @@ const Timer = () => {
   const [sessionLength, setSessionLength] = useState(25);
   const [timerValue, setTimerValue] = useState("25:00");
   const [timerState, setTimerState] = useState();
-  const [currentMinutes, setCurrentMinutes] = useState();
+  const [timeLeft, setTimeLeft] = useState();
   const [timerInterval, setTimerInterval] = useState();
   const [myTimeout, setMyTimeout] = useState();
   const [timerLabel, setTimerLabel] = useState("Session");
@@ -91,7 +91,7 @@ const Timer = () => {
       setTimerInterval(myInterval);
       setTimerLabel(label);
       seconds -= 1;
-      setCurrentMinutes(seconds / 60);
+      setTimeLeft(seconds / 60);
       setTimerValue(formatTime(seconds));
 
       if (seconds === 0) {
@@ -107,7 +107,7 @@ const Timer = () => {
     if (!timerMode) {
       countDown(sessionLength, "Session");
     } else if (timerMode === "resume") {
-      countDown(currentMinutes, timerLabel);
+      countDown(timeLeft, timerLabel);
     } else if (timerMode === "switch" && label === "Session") {
       countDown(breakLength + 1 / 60, "Break");
     } else if (timerMode === "switch" && label === "Break") {
