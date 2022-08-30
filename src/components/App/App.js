@@ -13,7 +13,7 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-  width: fit-content;
+  width: max-content;
   margin: 30px;
   padding: 45px 20px;
   background-color: #3a7865;
