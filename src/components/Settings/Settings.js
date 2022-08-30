@@ -11,11 +11,11 @@ const Settings = (props) => {
         <Label id="break-label">Break Length</Label>
 
         <ButtonWrapper>
-          <Button onClick={props.handleBreakDecrement}>
+          <Button onClick={props.handleBreakDecrement} disabled={props.timerState? true: false}>
             <Icon id="chevron-down" strokeWidth={2.5} size={22} />
           </Button>
           <DurationVariable>{props.breakLength}</DurationVariable>
-          <Button onClick={props.handleBreakIncrement}>
+          <Button onClick={props.handleBreakIncrement} disabled={props.timerState? true: false}>
             <Icon id="chevron-up" strokeWidth={2.5} size={22} />
           </Button>
         </ButtonWrapper>
@@ -25,11 +25,11 @@ const Settings = (props) => {
         <Label id="session-label">Session Length</Label>
 
         <ButtonWrapper>
-          <Button onClick={props.handleSessionDecrement}>
+          <Button onClick={props.handleSessionDecrement} disabled={props.timerState? true: false}>
             <Icon id="chevron-down" strokeWidth={2.5} size={22}></Icon>
           </Button>
           <DurationVariable>{props.sessionLength}</DurationVariable>
-          <Button onClick={props.handleSessionIncrement}>
+          <Button onClick={props.handleSessionIncrement} disabled={props.timerState? true: false}>
             <Icon id="chevron-up" strokeWidth={2.5} size={22}></Icon>
           </Button>
         </ButtonWrapper>

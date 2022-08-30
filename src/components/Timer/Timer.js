@@ -124,6 +124,7 @@ const Timer = () => {
         handleSessionIncrement={handleSessionIncrement}
         handleBreakDecrement={handleBreakDecrement}
         handleSessionDecrement={handleSessionDecrement}
+        timerState={timerState}
       />
       <TimerDisplay
         timerValue={timerValue}

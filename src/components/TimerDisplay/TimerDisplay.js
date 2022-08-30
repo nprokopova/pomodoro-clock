@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   border-radius: 20px;
 `;
 const TimeLeft = styled.time`
-  font-size: ${48 / 16}rem;
+  font-size: ${47 / 16}rem;
   font-style: normal;
 `;
 const Label = styled.label`
